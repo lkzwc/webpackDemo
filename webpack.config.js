@@ -10,11 +10,18 @@ module.exports = {
     path: resolve(__dirname, "./build"),
     filename: "[name].js", //用占位符替代
   },
+  resolveLoader: {
+    modules: ["./node_modules", "./myloader"],
+  },
   module: {
     rules: [
+      // {
+      //   test: /\.less$/,
+      //   use: ["style-loader", "css-loader", "less-loader"], //从后向前
+      // },
       {
         test: /\.less$/,
-        use: ["style-loader", "css-loader", "less-loader"], //从后向前
+        use: ["mystyle", "mycss", "myless"], //从后向前
       },
     ],
   },
@@ -22,7 +29,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/public/index.html", //指定模板
       filename: "index.html",
-      chunks: ["index"], //区分html中导入的js墨客
+      chunks: ["index"], //区分html中导入的js模块
     }),
     new HtmlWebpackPlugin({
       template: "./src/public/login.html",
